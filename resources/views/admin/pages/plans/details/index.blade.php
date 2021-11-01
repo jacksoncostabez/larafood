@@ -16,6 +16,7 @@
 @section('content')
     <div class="card">
         <div class="card-body">
+            @include('admin.includes.alerts')
             <table class="table table-condensed">
                 <thead>
                     <tr>
@@ -29,9 +30,14 @@
                             <td>
                                 {{ $detail->name }}
                             </td>
-                            <td style="width=10px;">
-                                <a href="{{ route('details.plan.edit', [$plan->url, $detail->id]) }}" class="btn btn-info">Edit</a>
-                                <a href="{{ route('plans.show', $plan->url) }}" class="btn btn-warning">VER</a>
+                            <td style="width=350px;">
+                                <form action="{{ route('details.plan.destroy', [$plan->url, $detail->id]) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="{{ route('details.plan.edit', [$plan->url, $detail->id]) }}" class="btn btn-info">Edit</a>
+                                    <a href="{{ route('details.plan.show', [$plan->url, $detail->id]) }}" class="btn btn-warning">VER</a>
+                                    <button type="submit" class="btn btn-danger">DELETAR</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach
