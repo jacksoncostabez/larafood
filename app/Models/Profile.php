@@ -20,6 +20,14 @@ class Profile extends Model
     }
 
     /**
+     * Get Profiles
+     */
+    public function plans()
+    {
+        return $this->belongsToMany(Plan::class);
+    }
+
+    /**
      * Recupera as permissões não associadas a um perfil
      */
     public function permissionsAvailable($filter = null)

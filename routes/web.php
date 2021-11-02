@@ -5,10 +5,19 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('admin')->group(function () {
 
     /**
+     * Plan x Profile
+     */
+    Route::get('plans/{id}/profile/{idProfile}/detach', 'App\Http\Controllers\Admin\ACL\PlanProfileController@detachPlanProfile')->name('plans.profile.detach');
+    Route::post('plans/{id}/profiles', 'App\Http\Controllers\Admin\ACL\PlanProfileController@attachProfilesPlan')->name('plans.profiles.attach');
+    Route::any('plans/{id}/profiles/create', 'App\Http\Controllers\Admin\ACL\PlanProfileController@profilesAvailable')->name('plans.profiles.available');
+    Route::get('plans/{id}/profiles', 'App\Http\Controllers\Admin\ACL\PlanProfileController@profiles')->name('plans.profiles');
+    Route::get('profiles/{id}/plans', 'App\Http\Controllers\Admin\ACL\PlanProfileController@plans')->name('profiles.plans');
+
+    /**
      * Profiles x Permissions
      */
     Route::get('profiles/{id}/permissions', 'App\Http\Controllers\Admin\ACL\PermissionProfileController@permissions')->name('profiles.permissions');
-    
+
     /**
      * Permission x Profile
      */
