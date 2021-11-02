@@ -41,7 +41,8 @@
                                     @method('DELETE')
                                     <a href="{{ route('profiles.edit', $profile->id) }}" class="btn btn-info">EDIT</a>
                                     <a href="{{ route('profiles.show', $profile->id) }}" class="btn btn-warning">VER</a>
-                                    <button type="submit" class="btn btn-danger">DELETE</button>
+                                    <a href="{{ route('profiles.permissions', $profile->id) }}" class="btn btn-warning"><i class="fas fa-lock" title="Permissões"></i></a>
+                                    <button type="submit" class="btn btn-danger" title="Deletar">DEL</button>
                                 </form>
                             </td>
                         </tr>

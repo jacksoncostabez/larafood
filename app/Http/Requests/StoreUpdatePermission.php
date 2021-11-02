@@ -26,7 +26,7 @@ class StoreUpdatePermission extends FormRequest
         $id = $this->segment(3);
         //{$id},id", Essa parte resolve o problema na hora de editar a descrição e deixar o mesmo nome.
         return [
-            'name' => "required|min:3|max:255|unique:profiles,name,{$id},id",
+            'name' => "required|min:3|max:255|unique:permissions,name,{$id},id",
             'description' => "nullable|min:3|max:255",
         ];
     }
