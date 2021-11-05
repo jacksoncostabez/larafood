@@ -2,7 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('admin')->group(function () {
+Route::prefix('admin')
+        //->namespace('Admin')
+        ->middleware('auth')
+        ->group(function () {
 
     /**
      * Plan x Profile
@@ -67,6 +70,14 @@ Route::prefix('admin')->group(function () {
     Route::get('/', 'App\Http\Controllers\Admin\PlanController@index')->name('admin.index');
 });
 
+/*
 Route::get('/', function () {
     return view('welcome');
-});
+}); */
+
+Route::get('/', 'App\Http\Controllers\Site\SiteController@index')->name('site.home');
+
+/**
+ * Auth Routes
+ */
+Auth::routes();
