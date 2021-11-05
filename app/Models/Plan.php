@@ -32,6 +32,11 @@ class Plan extends Model
         return $results;
     }
 
+    public function tenants()
+    {
+        return $this->hasMany(Tenant::class);
+    }
+
     /**
      * Recupera os perfis não associadas a um plano
      */
