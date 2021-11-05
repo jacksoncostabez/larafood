@@ -14,4 +14,16 @@ class SiteController extends Controller
 
         return view('site.pages.home.index', compact('plans'));
     }
+
+    public function plan($url)
+    {
+        if(!$plan = Plan::where('url', $url)->first()) {
+            return redirect()->back();
+        }
+
+        //Essa sessão vai ficar disponível no projeto em execução por 120 seg por meio de SESSION_DRIVER=file no .env
+        session()->put('plan', $plan);
+
+        return redirect()->route('register');
+    }
 }

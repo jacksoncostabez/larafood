@@ -75,7 +75,12 @@ Route::get('/', function () {
     return view('welcome');
 }); */
 
+/**
+ * Site
+ */
+Route::get('/plan/{url}', 'App\Http\Controllers\Site\SiteController@plan')->name('plan.subscription');
 Route::get('/', 'App\Http\Controllers\Site\SiteController@index')->name('site.home');
+
 
 /**
  * Auth Routes

@@ -23,7 +23,9 @@ class RedirectIfAuthenticated
 
         foreach ($guards as $guard) {
             if (Auth::guard($guard)->check()) {
-                return redirect(RouteServiceProvider::HOME);
+                //return redirect(RouteServiceProvider::HOME);
+                //redireciona para o admin caso você já esteja logado no sistema e tente assinar um plano.
+                return redirect('/admin');
             }
         }
 
