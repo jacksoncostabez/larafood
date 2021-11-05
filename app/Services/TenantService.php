@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use Illuminate\Support\Str;
 use App\Models\Plan;
 
 class TenantService 
@@ -28,7 +27,7 @@ class TenantService
         return $this->plan->tenants()->create([
             'name' => $this->data['empresa'],
             'cnpj' => $this->data['cnpj'],
-            'url' => Str::kebab($this->data['empresa']),
+            //'url' => Str::kebab($this->data['empresa']), especificado no TenantObserver
             'email' => $this->data['email'],
             'subscription' => now(),
             'expires_at' => now()->addDays(7), //adiciona 7 dias após o dia atual.
