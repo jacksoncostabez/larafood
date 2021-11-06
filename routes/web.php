@@ -7,6 +7,12 @@ Route::prefix('admin')
         ->middleware('auth')
         ->group(function () {
 
+     /**
+     * Routes Users
+     */
+    Route::any('users/search', 'App\Http\Controllers\Admin\UserController@search')->name('users.search');
+    Route::resource('users', 'App\Http\Controllers\Admin\UserController');
+
     /**
      * Plan x Profile
      */
