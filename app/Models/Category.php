@@ -17,4 +17,9 @@ class Category extends Model
     {
         return $this->hasMany(Tenant::class);
     }
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }

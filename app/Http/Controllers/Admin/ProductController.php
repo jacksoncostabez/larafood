@@ -3,18 +3,18 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\StoreUpdateCategory;
-use App\Models\Category;
+use App\Http\Requests\StoreUpdateProduct;
+use App\Models\Product;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
 
-class CategoryController extends Controller
+class ProductController extends Controller
 {
     private $repository;
 
-    public function __construct(Category $category)
+    public function __construct(Product $product)
     {
-        $this->repository = $category;
+        $this->repository = $product;
     }
 
     /**
@@ -24,9 +24,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = $this->repository->latest()->paginate();
+        $products = $this->repository->latest()->paginate();
 
-        return view('admin.pages.categories.index', compact('categories'));
+        return view('admin.pages.products.index', compact('products'));
     }
 
     /**
@@ -36,20 +36,28 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.pages.categories.create');
+        return view('admin.pages.products.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\StoreUpdateCategory  $request
+     * @param  App\Http\Requests\StoreUpdateProduct  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreUpdateCategory $request)
+    public function store(StoreUpdateProduct $request)
     {
-        $this->repository->create($request->all());
+        $data = $request->all();
+        
+        $tenant = auth()->user()->tenant;
 
-        return redirect()->route('categories.index');
+        if($request->hasFile('image') && $request->image->isValue()) {
+            $data['image'] = $request->image->store("tenants/{$tenant->uuid}/products");
+        }
+
+        $this->repository->create($data);
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -60,11 +68,11 @@ class CategoryController extends Controller
      */
     public function show($id)
     {
-        if(!$category = $this->repository->find($id)) {
+        if(!$product = $this->repository->find($id)) {
             return redirect()->back();
         }
 
-        return view('admin.pages.categories.show', compact('category'));
+        return view('admin.pages.products.show', compact('category'));
     }
 
     /**
@@ -75,29 +83,35 @@ class CategoryController extends Controller
      */
     public function edit($id)
     {
-        if(!$category = $this->repository->find($id)) {
+        if(!$product = $this->repository->find($id)) {
             return redirect()->back();
         }
 
-       return view('admin.pages.categories.edit', compact('category'));
+       return view('admin.pages.products.edit', compact('category'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  App\Http\Requests\StoreUpdateCategory  $request
+     * @param  App\Http\Requests\StoreUpdateProduct  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreUpdateCategory $request, $id)
+    public function update(StoreUpdateProduct $request, $id)
     {
-        if(!$category = $this->repository->find($id)) {
+        if(!$product = $this->repository->find($id)) {
             return redirect()->back();
         }
 
-        $category->update($request->all());
+        $tenant = auth()->user()->tenant;
 
-        return redirect()->route('categories.index');
+        if($request->hasFile('image') && $request->image->isValue()) {
+            $data['image'] = $request->image->store("tenants/{$tenant->uuid}/products");
+        }
+
+        $product->update($request->all());
+
+        return redirect()->route('products.index');
     }
 
     /**
@@ -108,13 +122,13 @@ class CategoryController extends Controller
      */
     public function destroy($id)
     {
-        if(!$category = $this->repository->find($id)) {
+        if(!$product = $this->repository->find($id)) {
             return redirect()->back();
         }
 
-        $category->delete();
+        $product->delete();
 
-        return redirect()->route('categories.index');
+        return redirect()->route('products.index');
     }
 
          /**
@@ -127,15 +141,15 @@ class CategoryController extends Controller
     {
         $filters = $request->only('filter'); //serve para preservar a busca na paginação
 
-        $categories = $this->repository->where(function($query) use ($request){
+        $products = $this->repository->where(function($query) use ($request){
             if($request->filter) {
                 $query->orWhere('description', 'LIKE', "%{$request->filter}%")
-                        ->orWhere('name', 'LIKE', "%{$request->filter}%");
+                        ->orWhere('title', 'LIKE', "%{$request->filter}%");
             }
         })
         ->latest()
         ->paginate();
 
-        return view('admin.pages.categories.index', compact('categories', 'filters'));
+        return view('admin.pages.products.index', compact('products', 'filters'));
     }
 }
