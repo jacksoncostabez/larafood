@@ -26,7 +26,7 @@
                     <tr>
                         <th>Nome</th>
                         <th>Descrição</th>
-                        <th width="150">Ações</th>
+                        <th width="300">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,8 +35,14 @@
                             <td>{{ $category->name }}</td>
                             <td>{{ $category->description }}</td>
                             <td style="width: 10px;">
-                                <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info">EDIT</a>
-                                <a href="{{ route('categories.show', $category->id) }}" class="btn btn-warning">VER</a>
+                                <form action="{{ route('categories.destroy', $category->id) }}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <a href="{{ route('categories.edit', $category->id) }}" class="btn btn-info">EDIT</a>
+                                    <a href="{{ route('categories.show', $category->id) }}" class="btn btn-warning">VER</a>
+                                    <a href="{{ route('categories.products', $category->id) }}" class="btn btn-warning">PRODUTOS</a>
+                                    <button type="submit" class="btn btn-danger">DEL</button>
+                                </form>
                             </td>
                         </tr>
                     @endforeach

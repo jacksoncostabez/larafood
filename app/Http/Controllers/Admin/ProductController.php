@@ -7,6 +7,7 @@ use App\Http\Requests\StoreUpdateProduct;
 use App\Models\Product;
 use App\Models\Tenant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -51,7 +52,7 @@ class ProductController extends Controller
         
         $tenant = auth()->user()->tenant;
 
-        if($request->hasFile('image') && $request->image->isValue()) {
+        if($request->hasFile('image') && $request->image) {
             $data['image'] = $request->image->store("tenants/{$tenant->uuid}/products");
         }
 
@@ -72,7 +73,7 @@ class ProductController extends Controller
             return redirect()->back();
         }
 
-        return view('admin.pages.products.show', compact('category'));
+        return view('admin.pages.products.show', compact('product'));
     }
 
     /**
@@ -87,7 +88,7 @@ class ProductController extends Controller
             return redirect()->back();
         }
 
-       return view('admin.pages.products.edit', compact('category'));
+       return view('admin.pages.products.edit', compact('product'));
     }
 
     /**
@@ -103,13 +104,23 @@ class ProductController extends Controller
             return redirect()->back();
         }
 
+        $data = $request->all();
+
         $tenant = auth()->user()->tenant;
 
-        if($request->hasFile('image') && $request->image->isValue()) {
+        if($request->hasFile('image') && $request->image) {
+
+            /**
+             * Deleta image do diretório antes de inserir a outra.
+             */
+            if(Storage::exists($product->image)) {
+                Storage::delete($product->image);
+            }
+
             $data['image'] = $request->image->store("tenants/{$tenant->uuid}/products");
         }
 
-        $product->update($request->all());
+        $product->update($data);
 
         return redirect()->route('products.index');
     }
@@ -124,6 +135,11 @@ class ProductController extends Controller
     {
         if(!$product = $this->repository->find($id)) {
             return redirect()->back();
+        }
+
+        //Detela a image do product também.
+        if(Storage::exists($product->image)) {
+            Storage::delete($product->image);
         }
 
         $product->delete();

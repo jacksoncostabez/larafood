@@ -28,7 +28,8 @@ class StoreUpdateProduct extends FormRequest
         $rules = [
             'title' => ['required', 'string', 'min:3', 'max:255', "unique:products,title,{$id},id"],
             'description' => ['required', 'min:3', 'max:500'],
-            'image' => ['required', 'image'],
+            'price' => "required|regex:/^\d+(\.\d{1,2})?$/",
+            'image' => ['required', 'image']
         ];
 
         //quando tiver editando ele é nullable
