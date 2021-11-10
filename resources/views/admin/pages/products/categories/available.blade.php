@@ -5,8 +5,9 @@
 @section('content_header')
     <ol class="breadcrumb">
         <li class="breadcrumb-item"><a href="{{ route('admin.index') }}">Dashboard</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('products.index') }}" class="">Produtos</a></li>
-        <li class="breadcrumb-item active"><a href="{{ route('categories.index') }}" class="">Categorias</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('products.index') }}" class="">Produtos</a></li>
+        <li class="breadcrumb-item"><a href="{{ route('products.categories', $product->id) }}" class="">Categorias</a></li>
+        <li class="breadcrumb-item active"><a href="{{ route('products.categories.available', $product->id) }}" class="">Create</a></li>
     </ol>
 
     <h1>Categorias disponíveis do produto <strong>{{ $product->title }}</strong></h1>

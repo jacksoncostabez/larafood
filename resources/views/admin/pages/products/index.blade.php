@@ -42,7 +42,7 @@
                                 <form action="{{ route('products.destroy', $product->id) }}" method="post">
                                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-info">EDIT</a>
                                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-warning">VER</a>
-                                    <a href="{{ route('products.categories', $product->id) }}" class="btn btn-warning"><i class="fas fa-lock" title="Categorias"></i></a>
+                                    <a href="{{ route('products.categories', $product->id) }}" class="btn btn-warning"><i class="fas fa-layer-group" title="Categorias"></i></a>
                                     <button type="submit" class="btn btn-danger" title="Deletar">DEL</button>
                                 </form>
                             </td>
