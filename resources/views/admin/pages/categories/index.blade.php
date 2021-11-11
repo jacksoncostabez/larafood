@@ -8,7 +8,11 @@
         <li class="breadcrumb-item active"><a href="{{ route('categories.index') }}" class="">Categorias</a> ({{ auth()->user()->tenant->name }}) </li>
     </ol>
 
-    <h1>Categorias <a href="{{ route('categories.create') }}" class="btn btn-dark">ADD <i class="fas fa-plus"></i></a></h1>
+    <h1>Categorias 
+        @can('add_cat')
+            <a href="{{ route('categories.create') }}" class="btn btn-dark">ADD <i class="fas fa-plus"></i></a>
+        @endcan
+    </h1>
 @stop
 
 @section('content')

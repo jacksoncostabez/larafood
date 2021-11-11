@@ -8,6 +8,24 @@ Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
 
+
+        /**
+         * 
+         */
+        Route::get('tenants/{id}/users/create', 'App\Http\Controllers\Admin\TenantUserController@create')->name('tenants.users.create');
+        Route::delete('tenants/{idTenant}/users/{idUser}', 'App\Http\Controllers\Admin\TenantUserController@destroy')->name('tenants.users.destroy');
+        Route::put('tenants/{idTenant}/users/{idUser}', 'App\Http\Controllers\Admin\TenantUserController@update')->name('tenants.users.update');
+        Route::get('tenants/{idTenant}/users/{idUser}/edit', 'App\Http\Controllers\Admin\TenantUserController@edit')->name('tenants.users.edit');
+        Route::get('tenants/{id}/users', 'App\Http\Controllers\Admin\TenantUserController@users')->name('tenants.users');
+        Route::post('tenants/{id}/users', 'App\Http\Controllers\Admin\TenantUserController@store')->name('tenants.users.store');
+        
+
+        /**
+         * Routes Tenants
+         */
+        Route::any('tenants/search', 'App\Http\Controllers\Admin\TenantController@search')->name('tenants.search');
+        Route::resource('tenants', 'App\Http\Controllers\Admin\TenantController');
+
         /**
          * Routes Tables
          */

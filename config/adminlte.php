@@ -226,6 +226,18 @@ return [
 
     'menu' => [
         [
+            'text' => 'Empresas',
+            'url'  => 'admin/tenants',
+            'icon' => 'far fa-building',
+            'can'  => 'tenants',
+           /* 'submenu' => [
+                [
+                    'text' => 'Usuários',
+                    'url'  => 'admin/tenants/users',
+                ],
+            ],*/
+        ],
+        [
             'text' => 'Planos',
             'url'  => 'admin/plans',
             'icon' => 'fas fa-list-ul',

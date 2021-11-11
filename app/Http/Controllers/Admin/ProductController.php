@@ -49,17 +49,7 @@ class ProductController extends Controller
      */
     public function store(StoreUpdateProduct $request)
     {
-        $data = $request->all();
-        
-        $tenant = auth()->user()->tenant;
-
-        if($request->hasFile('image') && $request->image) {
-            $data['image'] = $request->image->store("tenants/{$tenant->uuid}/products");
-        }
-
-        $this->repository->create($data);
-
-        return redirect()->route('products.index');
+        //
     }
 
     /**
@@ -148,7 +138,7 @@ class ProductController extends Controller
         return redirect()->route('products.index');
     }
 
-         /**
+    /**
      * Search results
      *
      * @param  Request  $request

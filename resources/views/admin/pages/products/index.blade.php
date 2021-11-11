@@ -40,6 +40,8 @@
                             <td>R$ {{ number_format($product->price, 2, ',', '.')}}</td>
                             <td style="width: 10px;">
                                 <form action="{{ route('products.destroy', $product->id) }}" method="post">
+                                    @csrf
+                                    @method('DELETE')
                                     <a href="{{ route('products.edit', $product->id) }}" class="btn btn-info">EDIT</a>
                                     <a href="{{ route('products.show', $product->id) }}" class="btn btn-warning">VER</a>
                                     <a href="{{ route('products.categories', $product->id) }}" class="btn btn-warning"><i class="fas fa-layer-group" title="Categorias"></i></a>
