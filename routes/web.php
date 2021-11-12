@@ -10,7 +10,26 @@ Route::prefix('admin')
 
 
         /**
-         * 
+         * Roles x Permissions
+         */
+        Route::get('roles/{id}/permissions', 'App\Http\Controllers\Admin\ACL\PermissionRoleController@permissions')->name('roles.permissions');
+        
+        /**
+         * Permission x Role
+         */
+        Route::get('roles/{id}/permission/{idPermission}/detach', 'App\Http\Controllers\Admin\ACL\PermissionRoleController@detachPermissionRole')->name('roles.permission.detach');
+        Route::post('roles/{id}/permissions', 'App\Http\Controllers\Admin\ACL\PermissionRoleController@attachPermissionsRole')->name('roles.permissions.attach');
+        Route::any('roles/{id}/permissions/create', 'App\Http\Controllers\Admin\ACL\PermissionRoleController@permissionsAvailable')->name('roles.permissions.available');
+        Route::get('permissions/{id}/roles', 'App\Http\Controllers\Admin\ACL\PermissionRoleController@roles')->name('permissions.roles');
+
+        /**
+         * Routes Roles
+         */
+        Route::any('roles/search', 'App\Http\Controllers\Admin\ACL\RoleController@search')->name('roles.search');
+        Route::resource('roles', 'App\Http\Controllers\Admin\ACL\RoleController');
+
+        /**
+         * Tenants x Users
          */
         Route::get('tenants/{id}/users/create', 'App\Http\Controllers\Admin\TenantUserController@create')->name('tenants.users.create');
         Route::delete('tenants/{idTenant}/users/{idUser}', 'App\Http\Controllers\Admin\TenantUserController@destroy')->name('tenants.users.destroy');

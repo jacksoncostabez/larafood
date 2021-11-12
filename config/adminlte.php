@@ -250,6 +250,12 @@ return [
             'can'  => 'profiles' #permissão acl
         ],
         [
+            'text' => 'Cargos',
+            'url'  => 'admin/roles',
+            'icon' => 'fas fa-briefcase',
+            'can'  => 'roles' #permissão acl
+        ],
+        [
             'text' => 'Permissões',
             'url'  => 'admin/permissions',
             'icon' => 'fas fa-lock',
