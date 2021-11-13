@@ -8,6 +8,23 @@ Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
 
+        /**
+         * Users x Roles
+         */
+        Route::get('users/{idUser}/roles/{idRoler}/detach', 'App\Http\Controllers\Admin\ACL\RoleUserController@detachUserRole')->name('users.roles.detach');
+        Route::post('users/{id}/roles', 'App\Http\Controllers\Admin\ACL\RoleUserController@attachRolesUser')->name('users.roles.attach');
+        Route::any('users/{id}/roles/create', 'App\Http\Controllers\Admin\ACL\RoleUserController@rolesAvailable')->name('users.roles.available');
+        Route::get('users/{id}/roles', 'App\Http\Controllers\Admin\ACL\RoleUserController@users')->name('users.roles');
+        Route::get('roles/{id}/users', 'App\Http\Controllers\Admin\ACL\RoleUserController@roles')->name('roles.users');
+        
+        /**
+         * Roles x Users
+         */
+        Route::get('roles/{idRole}/users/{idUser}/detach', 'App\Http\Controllers\Admin\ACL\RoleUserController@detachRoleUser')->name('roles.users.detach');
+        Route::post('roles/{id}/users', 'App\Http\Controllers\Admin\ACL\RoleUserController@attachUsersRole')->name('roles.users.attach');
+        Route::any('roles/{id}/users/create', 'App\Http\Controllers\Admin\ACL\RoleUserController@usersAvailable')->name('roles.users.available');
+        Route::get('roles/{id}/users', 'App\Http\Controllers\Admin\ACL\RoleUserController@users')->name('roles.users');
+        Route::get('users/{id}/roles', 'App\Http\Controllers\Admin\ACL\RoleUserController@roles')->name('users.roles');
 
         /**
          * Roles x Permissions

@@ -2,11 +2,14 @@
 
 namespace App\Models\Traits;
 
+use App\Models\Tenant;
+
 trait UserACLTrait
 {
     /**
      * Retorna as permissões do usuário autenticado.
      */
+    /*
     public function permissions()
     {
         $tenant = $this->tenant()->first();
@@ -17,6 +20,58 @@ trait UserACLTrait
             foreach ($profile->permissions as $permission) {
                 array_push($permissions, $permission->name);
             }
+        }
+
+        return $permissions;
+    }
+    */
+
+    public function permissions(): array
+    {
+        $permissionsPlan = $this->permissionsPlan();
+        $permissionsRole = $this->permissionsRole();
+
+        $permissions = [];
+
+        foreach ($permissionsRole as $permissionRole) {
+            if (in_array($permissionRole, $permissionsPlan)) { //verifica se a permissão do cargo está na permissão do plano.
+                array_push($permissions, $permissionsPlan);
+            }
+        }
+        
+        return $permissions;
+    }
+
+    /**
+     * Retorna as permissões do plano
+     */
+    public function permissionsPlan(): array
+    {
+        $tenant = Tenant::with('plan.profiles.permissions')->where('id', $this->tenant_id)->first();
+        $plan = $tenant->plan;
+        dd($plan);
+
+        $permissions = [];
+        foreach ($plan->profiles as $profile) {
+            foreach ($profile->permissions as $permission) {
+                array_push($permissions, $permission->name);
+            }
+        }
+
+        return $permissions;
+    }
+
+    /**
+     * Retorna as permissões dos cargos do usuário.
+     */
+    public function permissionsRole(): array
+    {
+        $roles = $this->roles()->with('permissions')->get();
+
+        $permissions = [];
+
+        foreach ($roles->permissions as $permissions) {
+            array_push($permissions, $permissions->name);
         }
 
         return $permissions;

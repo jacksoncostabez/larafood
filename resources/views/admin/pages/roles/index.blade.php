@@ -25,7 +25,7 @@
                 <thead>
                     <tr>
                         <th>Nome</th>
-                        <th width="280">Ações</th>
+                        <th width="300">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -42,6 +42,7 @@
                                     <a href="{{ route('roles.edit', $role->id) }}" class="btn btn-info">EDIT</a>
                                     <a href="{{ route('roles.show', $role->id) }}" class="btn btn-warning">VER</a>
                                     <a href="{{ route('roles.permissions', $role->id) }}" class="btn btn-warning"><i class="fas fa-lock" title="Permissões"></i></a>
+                                    <a href="{{ route('roles.users', $role->id) }}" class="btn btn-warning"><i class="fas fa-users" title="Usuários"></i></a>
                                     <button type="submit" class="btn btn-danger" title="Deletar">DEL</button>
                                 </form>
                             </td>

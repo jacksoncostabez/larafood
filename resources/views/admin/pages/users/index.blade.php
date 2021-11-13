@@ -26,7 +26,8 @@
                     <tr>
                         <th>Nome</th>
                         <th>E-mail</th>
-                        <th width="270">Ações</th>
+                        <th>Empresa</th>
+                        <th width="200">Ações</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -34,9 +35,11 @@
                         <tr>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
+                            <td>{{ $user->tenant->name }}</td>
                             <td style="width: 10px;">
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">EDIT</a>
                                 <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning">VER</a>
+                                <a href="{{ route('users.roles', $user->id) }}" class="btn btn-warning"><i class="fas fa-briefcase"></i></a>
                             </td>
                         </tr>
                     @endforeach

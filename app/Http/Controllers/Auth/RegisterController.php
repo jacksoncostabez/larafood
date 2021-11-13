@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Services\TenantService;
+use App\Tenant\Events\TenantCreated;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -73,6 +74,8 @@ class RegisterController extends Controller
         //criar um objeto da classe TenantService
         $tenantService = app(TenantService::class);
         $user = $tenantService->make($plan, $data);
+
+        event(new TenantCreated());
 
         return $user;
     }
