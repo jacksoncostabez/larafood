@@ -2,6 +2,7 @@
 
 namespace App\Models\Traits;
 
+use App\Models\Role;
 use App\Models\Tenant;
 
 trait UserACLTrait
@@ -33,12 +34,12 @@ trait UserACLTrait
 
         $permissions = [];
 
-        foreach ($permissionsRole as $permissionRole) {
-            if (in_array($permissionRole, $permissionsPlan)) { //verifica se a permissão do cargo está na permissão do plano.
-                array_push($permissions, $permissionsPlan);
+        foreach ($permissionsRole as $permission) {
+            if (in_array($permission, $permissionsPlan)) { //verifica se a permissão do cargo está na permissão do plano.
+                array_push($permissions, $permission);
             }
         }
-        
+
         return $permissions;
     }
 
@@ -49,7 +50,6 @@ trait UserACLTrait
     {
         $tenant = Tenant::with('plan.profiles.permissions')->where('id', $this->tenant_id)->first();
         $plan = $tenant->plan;
-        dd($plan);
 
         $permissions = [];
         foreach ($plan->profiles as $profile) {
@@ -69,9 +69,10 @@ trait UserACLTrait
         $roles = $this->roles()->with('permissions')->get();
 
         $permissions = [];
-
-        foreach ($roles->permissions as $permissions) {
-            array_push($permissions, $permissions->name);
+        foreach ($roles as $role) {
+            foreach ($role->permissions as $permission) {
+                array_push($permissions, $permission->name);
+            }
         }
 
         return $permissions;
