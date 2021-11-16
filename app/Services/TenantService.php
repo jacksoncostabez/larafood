@@ -12,7 +12,7 @@ class TenantService
 
     /**
      * Cria um objeto de TenantRepository, que implementa TenantRepositoryInterface
-     * A conversão é feita no Providers\AppServiceProvider.php no método register();
+     * A conversão é feita no Providers\RepositoryServiceProvider.php no método register();
      * Pois não é possível criar um objeto de uma interface.
      */
     public function __construct(TenantRepositoryInterface $repository)
@@ -20,9 +20,14 @@ class TenantService
         $this->repository = $repository;
     }
 
-    public function getAllTenants()
+    public function getAllTenants($per_page)
     {
-        return $this->repository->getAllTenants();
+        return $this->repository->getAllTenants($per_page);
+    }
+
+    public function getTenantByUuid(string $uuid)
+    {
+        return $this->repository->getTenantByUuid($uuid);
     }
 
     public function make(Plan $plan, array $data)
