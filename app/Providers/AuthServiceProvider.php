@@ -32,6 +32,17 @@ class AuthServiceProvider extends ServiceProvider
 
         $permissions = Permission::all();
 
+        /**
+         * Retorna para o usuário apenas as permissões associadas a ele.
+         * Isso tem efeito na apliação colocando o nome das permissões
+         * No menu do adminlte, basta colocar: 'can'  => 'profiles'
+         * Logo, se essa permissão estiver dentro da verificação abaixo
+         * o menu aparece para ele. Caso contrário, não aparece.
+         * Aplicando só isso, ele ainda continua tendo acesso aos métodos dos
+         * Controllers. Para impedir isso, basta aplicar o comando nos controllers:
+         * $this->middleware(['can:categories']); -> para o CategoryController e assim
+         * por diante.
+         **/
         foreach ($permissions as $permission) {
             Gate::define($permission->name, function(User $user) use ($permission) {
                 return $user->hasPermission($permission->name);

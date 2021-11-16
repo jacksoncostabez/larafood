@@ -8,23 +8,27 @@ Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
 
+        Route::get('teste-acl', function(){
+            dd(auth()->user()->permissionsRole());
+        });
+
         /**
-         * Users x Roles
+         * Roles x User
          */
-        Route::get('users/{idUser}/roles/{idRoler}/detach', 'App\Http\Controllers\Admin\ACL\RoleUserController@detachUserRole')->name('users.roles.detach');
-        Route::post('users/{id}/roles', 'App\Http\Controllers\Admin\ACL\RoleUserController@attachRolesUser')->name('users.roles.attach');
-        Route::any('users/{id}/roles/create', 'App\Http\Controllers\Admin\ACL\RoleUserController@rolesAvailable')->name('users.roles.available');
-        Route::get('users/{id}/roles', 'App\Http\Controllers\Admin\ACL\RoleUserController@users')->name('users.roles');
-        Route::get('roles/{id}/users', 'App\Http\Controllers\Admin\ACL\RoleUserController@roles')->name('roles.users');
-        
-        /**
-         * Roles x Users
-         */
-        Route::get('roles/{idRole}/users/{idUser}/detach', 'App\Http\Controllers\Admin\ACL\RoleUserController@detachRoleUser')->name('roles.users.detach');
+        Route::get('roles/{idRole}/users/{idUser}/detach', 'App\Http\Controllers\Admin\ACL\RoleUserController@detachUserRole')->name('roles.users.detach');
         Route::post('roles/{id}/users', 'App\Http\Controllers\Admin\ACL\RoleUserController@attachUsersRole')->name('roles.users.attach');
         Route::any('roles/{id}/users/create', 'App\Http\Controllers\Admin\ACL\RoleUserController@usersAvailable')->name('roles.users.available');
-        Route::get('roles/{id}/users', 'App\Http\Controllers\Admin\ACL\RoleUserController@users')->name('roles.users');
+        Route::get('roles/{id}/users', 'App\Http\Controllers\Admin\ACL\RoleUserController@roles')->name('roles.users');
+        Route::get('users/{id}/roles', 'App\Http\Controllers\Admin\ACL\RoleUserController@users')->name('users.roles');
+        
+        /**
+         * Roles x Users (Especializa TI)
+         */
+        Route::get('users/{id}/roles/{idRole}/detach', 'App\Http\Controllers\Admin\ACL\RoleUserController@detachRoleUser')->name('users.roles.detach');
+        Route::post('users/{id}/roles', 'App\Http\Controllers\Admin\ACL\RoleUserController@attachRolesUser')->name('users.roles.attach');
+        Route::any('users/{id}/roles/create', 'App\Http\Controllers\Admin\ACL\RoleUserController@rolesAvailable')->name('users.roles.available');
         Route::get('users/{id}/roles', 'App\Http\Controllers\Admin\ACL\RoleUserController@roles')->name('users.roles');
+        Route::get('roles/{id}/users', 'App\Http\Controllers\Admin\ACL\RoleUserController@users')->name('roles.users');
 
         /**
          * Roles x Permissions
@@ -37,6 +41,7 @@ Route::prefix('admin')
         Route::get('roles/{id}/permission/{idPermission}/detach', 'App\Http\Controllers\Admin\ACL\PermissionRoleController@detachPermissionRole')->name('roles.permission.detach');
         Route::post('roles/{id}/permissions', 'App\Http\Controllers\Admin\ACL\PermissionRoleController@attachPermissionsRole')->name('roles.permissions.attach');
         Route::any('roles/{id}/permissions/create', 'App\Http\Controllers\Admin\ACL\PermissionRoleController@permissionsAvailable')->name('roles.permissions.available');
+        Route::get('roles/{id}/permissions', 'App\Http\Controllers\Admin\ACL\PermissionRoleController@permissions')->name('roles.permissions');
         Route::get('permissions/{id}/roles', 'App\Http\Controllers\Admin\ACL\PermissionRoleController@roles')->name('permissions.roles');
 
         /**

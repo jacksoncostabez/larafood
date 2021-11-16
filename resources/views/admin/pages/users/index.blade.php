@@ -39,7 +39,9 @@
                             <td style="width: 10px;">
                                 <a href="{{ route('users.edit', $user->id) }}" class="btn btn-info">EDIT</a>
                                 <a href="{{ route('users.show', $user->id) }}" class="btn btn-warning">VER</a>
-                                <a href="{{ route('users.roles', $user->id) }}" class="btn btn-warning"><i class="fas fa-briefcase"></i></a>
+                                @can('roles', Model::class)
+                                    <a href="{{ route('users.roles', $user->id) }}" class="btn btn-warning"><i class="fas fa-briefcase"></i></a>
+                                @endcan
                             </td>
                         </tr>
                     @endforeach

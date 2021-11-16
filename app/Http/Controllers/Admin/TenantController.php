@@ -16,7 +16,7 @@ class TenantController extends Controller
     public function __construct(Tenant $tenant)
     {
         $this->repository = $tenant;
-        $this->middleware(['can:admins']);
+        $this->middleware(['can:tenants']);
     }
 
     /**
@@ -54,7 +54,7 @@ class TenantController extends Controller
         $tenant = auth()->user()->tenant;
 
         if($request->hasFile('image') && $request->image) {
-            $data['image'] = $request->image->store("tenants/{$request->uuid}/logos");
+            $data['image'] = $request->image->store("tenants/{$tenant->uuid}/logos");
         }
 
         $this->repository->create($data);

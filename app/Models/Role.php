@@ -33,7 +33,7 @@ class Role extends Model
      */
     public function permissionsAvailable($filter = null)
     {
-        $permissions = Permission::whereNotIn('id', function($query) {
+        $permissions = Permission::whereNotIn('permissions.id', function($query) {
             $query->select('permission_role.permission_id');
             $query->from('permission_role');
             $query->whereRaw("permission_role.role_id={$this->id}");

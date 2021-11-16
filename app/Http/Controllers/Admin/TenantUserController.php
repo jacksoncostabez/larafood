@@ -14,7 +14,7 @@ class TenantUserController extends Controller
     {
         $this->tenant = $tenant;
         $this->user = $user;
-        $this->middleware(['can:tenants']);
+        $this->middleware(['can:users']);
     }
 
     /**

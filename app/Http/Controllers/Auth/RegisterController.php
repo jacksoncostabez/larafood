@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Listeners\AddRoleTenant;
 use App\Providers\RouteServiceProvider;
 use App\Services\TenantService;
 use App\Tenant\Events\TenantCreated;
@@ -75,7 +76,7 @@ class RegisterController extends Controller
         $tenantService = app(TenantService::class);
         $user = $tenantService->make($plan, $data);
 
-        event(new TenantCreated($user));
+        event(new AddRoleTenant($user));
 
         return $user;
     }

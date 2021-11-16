@@ -13,7 +13,7 @@ class TenantCreated
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
-    protected $user;
+    private $user;
 
     /**
      * Create a new event instance.

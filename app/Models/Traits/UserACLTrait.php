@@ -13,22 +13,30 @@ trait UserACLTrait
     /*
     public function permissions()
     {
-        $tenant = $this->tenant()->first();
+        $tenant = $this->tenant()->first();;
         $plan = $tenant->plan;
 
         $permissions = [];
-        foreach($plan->profiles as $profile) {
+
+        foreach ($plan->profiles as $profile) {
             foreach ($profile->permissions as $permission) {
                 array_push($permissions, $permission->name);
             }
+            $permissions[] = $profile->name;
         }
 
         return $permissions;
     }
     */
 
+
+    /**
+     * Método usado parra verificar se a permissão do cargo está dentro da permissão do plano.
+     * Se tiver, ele add ao array de permissões para liberar as funcionalidades do usuário.
+     */
     public function permissions(): array
     {
+      //  dd($this->permissionsRole());
         $permissionsPlan = $this->permissionsPlan();
         $permissionsRole = $this->permissionsRole();
 
@@ -39,6 +47,8 @@ trait UserACLTrait
                 array_push($permissions, $permission);
             }
         }
+
+     //   dd($permissions);
 
         return $permissions;
     }
@@ -66,13 +76,24 @@ trait UserACLTrait
      */
     public function permissionsRole(): array
     {
+        if (!$role = Role::first()) {
+            return 0;
+        }
+
         $roles = $this->roles()->with('permissions')->get();
+
+        //Se não tiver nenhum cargo, add o cargo padrão.
+        if (count($roles) == 0) {
+            $this->roles()->attach($role);
+            $roles = $this->roles()->with('permissions')->get();
+        }
 
         $permissions = [];
         foreach ($roles as $role) {
             foreach ($role->permissions as $permission) {
                 array_push($permissions, $permission->name);
             }
+            // $permissions [] = $role->name;
         }
 
         return $permissions;
@@ -87,7 +108,7 @@ trait UserACLTrait
     }
 
     /**
-     * Verifica se o usuário é um admin do sistema.
+     * Verifica se o usuário autenticado é um admin do sistema.
      */
     public function isAdmin(): bool
     {
@@ -95,7 +116,7 @@ trait UserACLTrait
     }
 
     /**
-     * Verifica se o usuário é uma Tenant
+     * Verifica se o usuário é Admin ou não.
      */
     public function isTenant(): bool
     {

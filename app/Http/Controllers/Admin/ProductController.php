@@ -44,12 +44,22 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  App\Http\Requests\StoreUpdateProduct  $request
+     * @param  \App\Http\Requests\StoreUpdateProduct  $request
      * @return \Illuminate\Http\Response
      */
     public function store(StoreUpdateProduct $request)
     {
-        //
+        $data = $request->all();
+
+        $tenant = auth()->user()->tenant;
+
+        if ($request->hasFile('image') && $request->image->isValid()) {
+            $data['image'] = $request->image->store("tenants/{$tenant->uuid}/products");
+        }
+
+        $this->repository->create($data);
+
+        return redirect()->route('products.index');
     }
 
     /**
