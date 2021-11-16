@@ -3,10 +3,27 @@
 namespace App\Services;
 
 use App\Models\Plan;
+use App\Repositories\Contracts\TenantRepositoryInterface;
 
 class TenantService 
 {
     private $plan, $data = [];
+    private $repository;
+
+    /**
+     * Cria um objeto de TenantRepository, que implementa TenantRepositoryInterface
+     * A conversão é feita no Providers\AppServiceProvider.php no método register();
+     * Pois não é possível criar um objeto de uma interface.
+     */
+    public function __construct(TenantRepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+
+    public function getAllTenants()
+    {
+        return $this->repository->getAllTenants();
+    }
 
     public function make(Plan $plan, array $data)
     {
