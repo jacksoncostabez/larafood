@@ -4,17 +4,22 @@ namespace App\Providers;
 
 use App\Models\{
     Category,
+    Client,
     Plan,
     Product,
+    Table,
     Tenant
 };
 use App\Observers\{
     CategoryObserver,
+    ClientObserver,
     PlanObserver,
     ProductObserver,
+    TableObserver,
     TenantObserver
 };
 use Illuminate\Support\ServiceProvider;
+use Laravel\Sanctum\Sanctum;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -39,5 +44,7 @@ class AppServiceProvider extends ServiceProvider
         Tenant::observe(TenantObserver::class);
         Category::observe(CategoryObserver::class);
         Product::observe(ProductObserver::class);
+        Client::observe(ClientObserver::class);
+        Table::observe(TableObserver::class);
     }
 }

@@ -7,19 +7,19 @@ use App\Models\Tenant;
 class ManagerTenant
 {
     /**
-     * Get id tenant do user logado.
+     * Get id tenant do user logado caso ele exista. O caso de não existir é para o usuário que apenas sentar na mesa
      */
     public function getTenantIdentify()
     {
-        return auth()->user()->tenant_id;
+        return auth()->check() ? auth()->user()->tenant_id : '';
     }
 
     /**
      * get tenant logged
      */
-    public function getTenant(): Tenant
+    public function getTenant()
     {
-        return auth()->user()->tenant;
+        return auth()->check() ? auth()->user()->tenant : '';
     }
 
     /**
