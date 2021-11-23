@@ -40,12 +40,12 @@ class OrderRepository implements OrderRepositoryInterface
         return $order;
     }
 
-
     public function getOrderByIdentify(string $identify)
     {
         return $this->entity->where('identify', $identify)->first();
     }
 
+    //registra a venda na table product_order.
     public function registerProductsOrder(int $orderId, array $products)
     {
         $order = $this->entity->find($orderId);
@@ -75,9 +75,7 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function getOrdersByClientId(int $idClient)
     {
-        $orders = $this->entity
-                            ->where('client_id', $idClient)
-                            ->paginate();
+        $orders = $this->entity->where('client_id', $idClient)->paginate();
 
         return $orders;
     }

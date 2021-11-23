@@ -35,7 +35,10 @@ class StoreOrder extends FormRequest
             'comment' => [
                 'nullable',
                 'max:1000',
-            ]
+            ],
+            'products' => ['required'],
+            'products.*.identify' => ['required', 'exists:products,uuid'], //products.*.identify -> faz a verificação do array de products
+            'products.*.qty' => ['required', 'integer'],
         ];
     }
 }

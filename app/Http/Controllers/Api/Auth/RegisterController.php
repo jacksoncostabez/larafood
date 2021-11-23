@@ -19,7 +19,6 @@ class RegisterController extends Controller
     public function store(StoreClient $request)
     {
         $data = $request->all();
-        $data['password'] = bcrypt($request->password);
 
         $client = $this->clientService->createNewClient($data);
 

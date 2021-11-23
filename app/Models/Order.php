@@ -3,14 +3,25 @@
 namespace App\Models;
 
 use App\Tenant\Traits\TenantTrait;
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    use HasFactory, TenantTrait;
+    use TenantTrait;
 
-    protected $fillable = ['identify', 'total', 'status', 'comment', 'client_id', 'table_id', 'tenant_id'];
+    protected $fillable = ['tenant_id', 'identify', 'client_id', 'table_id', 'total', 'status', 'comment'];
+
+    /**
+     * Options status
+     */
+    public $statusOptions = [
+        'open' => 'Aberto',
+        'done' => 'Completo',
+        'rejected' => 'Rejeitado',
+        'working' => 'Andamento',
+        'canceled' => 'Cancelado',
+        'delivering' => 'Em transito',
+    ];
 
     public function tenant()
     {
@@ -30,5 +41,10 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class);
+    }
+
+    public function evaluations()
+    {
+        return $this->hasMany(Evaluation::class);
     }
 }

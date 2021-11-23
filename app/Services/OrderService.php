@@ -38,8 +38,8 @@ class OrderService
 
     public function createNewOrder(array $order)
     {
-        $productsOrder = $this->getProductsByOrder($order['products'] ?? []);
-
+        $productsOrder = $this->getProductsByOrder($order['products'] ?? []); //pega os produtos da venda
+        
         $identify = $this->getIdentifyOrder();
         $total = $this->getTotalOrder($productsOrder);
         $status = 'open';
@@ -75,10 +75,12 @@ class OrderService
         // $characters = $smallLetters.$numbers.$specialCharacters;
         $characters = $smallLetters.$numbers;
 
+        //cria o identificador da venda com 8 caracteres
         $identify = substr(str_shuffle($characters), 0, $qtyCaraceters);
 
+        //Se tiver alguma venda com o identificador gerado
         if ($this->orderRepository->getOrderByIdentify($identify)) {
-            $this->getIdentifyOrder($qtyCaraceters + 1);
+            $this->getIdentifyOrder($qtyCaraceters + 1); //aumenta 1 caractere no identificador para não ter valores duplicados e cria a venda novamente (recursiva).
         }
 
         return $identify;
@@ -88,7 +90,7 @@ class OrderService
     {
         $products = [];
         foreach ($productsOrder as $productOrder) {
-            $product = $this->productRepository->getProductByUuid($productOrder['identify']);
+            $product = $this->productRepository->getProductByUuid($productOrder['identify']); //pega o produto passado na venda pelo uuid
 
             array_push($products, [
                 'id' => $product->id,
