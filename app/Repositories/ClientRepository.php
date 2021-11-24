@@ -22,7 +22,7 @@ class ClientRepository implements ClientRepositoryInterface
         return $this->entity->create($data);
     }
 
-    public function getClient(int $indClient)
+    public function getClient(int $idClient)
     {
 
     }

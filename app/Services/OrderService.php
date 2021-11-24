@@ -26,7 +26,7 @@ class OrderService
 
     public function ordersByClient()
     {
-        $idClient = $this->getClientIdByOrder();
+        $idClient = $this->getClientIdByOrder(); // pega o id do client autenticado.
 
         return $this->orderRepository->getOrdersByClientId($idClient);
     }

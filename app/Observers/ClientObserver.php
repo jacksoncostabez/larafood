@@ -15,7 +15,7 @@ class ClientObserver
      */
     public function creating(Client $client)
     {
-        $client = Str::uuid();
+        $client->uuid = Str::uuid();
     }
 
     /**
