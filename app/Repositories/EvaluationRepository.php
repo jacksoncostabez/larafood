@@ -31,7 +31,6 @@ class EvaluationRepository implements EvaluationRepositoryInterface
         return $this->entity->where('order_id', $idOrder)->get();
     }
 
-
     public function getEvaluationsByClient(int $idClient)
     {
         return $this->entity->where('client_id', $idClient)->get();

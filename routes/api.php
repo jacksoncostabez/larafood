@@ -2,13 +2,22 @@
 
 use App\Models\Client;
 
-Route::post('/sanctum/token', 'App\Http\Controllers\Api\Auth\AuthClientController@auth');
+/**
+ * Clientes
+ */
+Route::post('/auth/register', 'App\Http\Controllers\Api\Auth\RegisterController@store');
+Route::post('/auth/token', 'App\Http\Controllers\Api\Auth\AuthClientController@auth');
 
+/**
+ * Usuários autenticados
+ */
 Route::group([
     'middleware' => ['auth:sanctum']
-], function() {
+], function () {
     Route::get('/auth/me', 'App\Http\Controllers\Api\Auth\AuthClientController@me');
     Route::post('/auth/logout', 'App\Http\Controllers\Api\Auth\AuthClientController@logout');
+
+    Route::post('/auth/v1/orders/{identifyOrder}/evaluations', 'App\Http\Controllers\Api\EvaluationApiController@store');
 
     Route::get('/auth/v1/my-orders', 'App\Http\Controllers\Api\OrderApiController@myOrders');
     Route::post('/auth/v1/orders', 'App\Http\Controllers\Api\OrderApiController@store');
@@ -30,12 +39,6 @@ Route::group([
     Route::get('/products/{identify}', 'ProductApiController@show');
     Route::get('/products', 'ProductApiController@productsByTenant');
 
-    /**
-     * Clientes
-     */
-    Route::post('/client', 'Auth\RegisterController@store');
-
     Route::post('/orders', 'OrderApiController@store');
     Route::get('/orders/{identify}', 'OrderApiController@show');
-
 });

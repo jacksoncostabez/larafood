@@ -14,13 +14,18 @@ class StoreEvaluationOrder extends FormRequest
      */
     public function authorize()
     {
+        //essas validações é para saber quem estar fazendo a avaliação da venda, se é o cara que comprou.
+
+        //pega o cliente autenticado.
         if (!$client = auth()->user()) {
             return false;
         }
 
+        //verifica a ordem passada no parâmetro.
         if (!$order = app(OrderRepositoryInterface::class)->getOrderByIdentify($this->identifyOrder)) {
             return false;
         }
+        //$this->identifyOrder -> Pega o identificador da venda passado como parâmetro na URL.
 
         return $client->id == $order->client_id;
     }
