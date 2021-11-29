@@ -38,6 +38,9 @@
                                 <form action="{{ route('tables.destroy', $table->id) }}" method="POST">
                                     @csrf
                                     @method('DELETE')
+                                    <a href="{{ route('tables.qrcode', $table->identify) }}" class="btn btn-default" target="_blank">
+                                        <i class="fas fa-qrcode"></i>
+                                    </a>
                                     <a href="{{ route('tables.edit', $table->id) }}" class="btn btn-info">EDIT</a>
                                     <a href="{{ route('tables.show', $table->id) }}" class="btn btn-warning">VER</a>
                                     <button type="submit" class="btn btn-danger">DEL</button>
