@@ -8,9 +8,11 @@ Route::prefix('admin')
     ->middleware('auth')
     ->group(function () {
 
+        /*
         Route::get('teste-acl', function(){
             dd(auth()->user()->permissionsRole());
         });
+        */
 
         /**
          * Roles x User
@@ -166,7 +168,8 @@ Route::prefix('admin')
         /**
          * Home Dashboard
          */
-        Route::get('/', 'App\Http\Controllers\Admin\PlanController@index')->name('admin.index');
+        Route::get('/', 'App\Http\Controllers\Admin\DashBoardController@home')->name('admin.index');
+        //Route::get('/', 'App\Http\Controllers\Admin\PlanController@index')->name('admin.index');
     });
 
 /*

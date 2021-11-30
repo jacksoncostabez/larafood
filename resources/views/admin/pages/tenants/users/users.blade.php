@@ -52,7 +52,6 @@
             @else
                 {!! $users->links() !!}
             @endif
-            
         </div>
     </div>
 @stop
