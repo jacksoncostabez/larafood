@@ -11,138 +11,157 @@
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box">
-              <div class="inner">
-                <h3>{{ $totalUsers }}</h3>
+            <a href="{{ route('users.index') }}">
+              <div class="small-box">
+                <div class="inner">
+                  <h3>{{ $totalUsers }}</h3>
+          
+                  <p>Usuários</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-users"></i>
+                </div>
+                {{--<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
+              </div>
+          </a>
+          </div>
         
-                <p>Usuários</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-users"></i>
-              </div>
-              {{--<a href="#" class="small-box-footer">More info <i class="fas fa-arrow-circle-right"></i></a> --}}
+
+        <div class="col-lg-3 col-6">
+            <!-- small box -->
+            <a href="{{ route('tables.index') }}">
+              <div class="small-box">
+                <div class="inner">
+                  <h3>{{ $totalTables }}</h3>
+          
+                  <p>Mesas</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-table"></i>
+                </div>
             </div>
+            </a>
           </div>
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box">
-              <div class="inner">
-                <h3>{{ $totalTables }}</h3>
-        
-                <p>Mesas</p>
+            <a href="{{ route('categories.index') }}">
+              <div class="small-box">
+                <div class="inner">
+                  <h3>{{ $totalCategories }}</h3>
+
+                  <p>Categorias</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-layer-group"></i>
+                </div>
               </div>
-              <div class="icon">
-                <i class="fas fa-table"></i>
-              </div>
-            </div>
+            </a>
           </div>
 
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box">
-              <div class="inner">
-                <h3>{{ $totalCategories }}</h3>
+            <a href="{{ route('products.index') }}">
+              <div class="small-box">
+                <div class="inner">
+                  <h3>{{ $totalProducts }}</h3>
 
-                <p>Categorias</p>
+                  <p>Produtos</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-hamburger"></i>
+                </div>
               </div>
-              <div class="icon">
-                <i class="fas fa-layer-group"></i>
-              </div>
-            </div>
-          </div>
-
-        <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box">
-              <div class="inner">
-                <h3>{{ $totalProducts }}</h3>
-
-                <p>Produtos</p>
-              </div>
-              <div class="icon">
-                <i class="fas fa-hamburger"></i>
-              </div>
-            </div>
+            </a>
           </div>
 
         @admin() {{-- Vem lá do  AppServiceProvider.php --}}
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box">
-              <div class="inner">
-                <h3>{{ $totalTenants }}</h3>
+            <a href="{{ route('tenants.index') }}">
+              <div class="small-box">
+                <div class="inner">
+                  <h3>{{ $totalTenants }}</h3>
 
-                <p>Empresas</p>
+                  <p>Empresas</p>
+                </div>
+                <div class="icon">
+                  <i class="far fa-building"></i>
+                </div>
               </div>
-              <div class="icon">
-                <i class="far fa-building"></i>
-              </div>
-            </div>
+            </a>
           </div>
           @endadmin
 
         @admin()
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box">
-              <div class="inner">
-                <h3>{{ $totalPlans }}</h3>
+            <a href="{{ route('plans.index') }}">
+              <div class="small-box">
+                <div class="inner">
+                  <h3>{{ $totalPlans }}</h3>
 
-                <p>Planos</p>
+                  <p>Planos</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-list-ul"></i>
+                </div>
               </div>
-              <div class="icon">
-                <i class="fas fa-list-ul"></i>
-              </div>
-            </div>
+            </a>
           </div>
           @endadmin
 
         @admin()
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box">
-              <div class="inner">
-                <h3>{{ $totalCargos }}</h3>
+            <a href="{{ route('roles.index') }}">
+              <div class="small-box">
+                <div class="inner">
+                  <h3>{{ $totalCargos }}</h3>
 
-                <p>Cargos</p>
+                  <p>Cargos</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-briefcase"></i>
+                </div>
               </div>
-              <div class="icon">
-                <i class="fas fa-briefcase"></i>
-              </div>
-            </div>
+            </a>
           </div>
           @endadmin
 
         @admin()
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box">
-              <div class="inner">
-                <h3>{{ $totalProfiles }}</h3>
+            <a href="{{ route('profiles.index') }}">
+              <div class="small-box">
+                <div class="inner">
+                  <h3>{{ $totalProfiles }}</h3>
 
-                <p>Perfis</p>
+                  <p>Perfis</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-address-book"></i>
+                </div>
               </div>
-              <div class="icon">
-                <i class="fas fa-address-book"></i>
-              </div>
-            </div>
+            </a>
           </div>
           @endadmin
 
         @admin()
         <div class="col-lg-3 col-6">
             <!-- small box -->
-            <div class="small-box">
-              <div class="inner">
-                <h3>{{ $totalPermissions }}</h3>
+            <a href="{{ route('permissions.index') }}">
+              <div class="small-box">
+                <div class="inner">
+                  <h3>{{ $totalPermissions }}</h3>
 
-                <p>Permissões</p>
+                  <p>Permissões</p>
+                </div>
+                <div class="icon">
+                  <i class="fas fa-lock"></i>
+                </div>
               </div>
-              <div class="icon">
-                <i class="fas fa-lock"></i>
-              </div>
-            </div>
+            </a>
           </div>
           @endadmin
     </div>

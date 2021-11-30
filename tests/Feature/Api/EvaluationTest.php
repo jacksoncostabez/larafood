@@ -30,6 +30,7 @@ class EvaluationTest extends TestCase
      *
      * @return void
      */
+    /*
     public function testCreateNewEvaluation()
     {
         $client = Client::factory()->create();
@@ -55,4 +56,5 @@ class EvaluationTest extends TestCase
 
         $response->assertStatus(201);
     }
+    */
 }

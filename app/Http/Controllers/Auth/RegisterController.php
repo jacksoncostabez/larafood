@@ -40,7 +40,8 @@ class RegisterController extends Controller
      */
     public function __construct()
     {
-        $this->middleware(['guest', 'check.selected.plan']);
+       // $this->middleware(['guest', 'check.selected.plan']);
+        $this->middleware(['guest']);
     }
 
     /**
@@ -56,7 +57,7 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'min:3', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:5', 'max:16', 'confirmed'],
             'cnpj' => ['required', 'numeric', 'min:14', 'unique:tenants'],
-            'empresa' => ['required', 'numeric', 'digits:14', 'unique:tenants,name'],
+            'empresa' => ['required', 'string', 'min:3', 'max:255', 'unique:tenants,name'],
         ]);
     }
 

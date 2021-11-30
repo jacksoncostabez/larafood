@@ -57,7 +57,6 @@
             @else
                 {!! $profiles->links() !!}
             @endif
-            
         </div>
     </div>
 @stop

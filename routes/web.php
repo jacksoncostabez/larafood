@@ -61,7 +61,6 @@ Route::prefix('admin')
         Route::get('tenants/{idTenant}/users/{idUser}/edit', 'App\Http\Controllers\Admin\TenantUserController@edit')->name('tenants.users.edit');
         Route::get('tenants/{id}/users', 'App\Http\Controllers\Admin\TenantUserController@users')->name('tenants.users');
         Route::post('tenants/{id}/users', 'App\Http\Controllers\Admin\TenantUserController@store')->name('tenants.users.store');
-        
 
         /**
          * Routes Tenants
