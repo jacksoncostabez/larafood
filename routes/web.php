@@ -22,7 +22,10 @@ Route::prefix('admin')
         Route::any('roles/{id}/users/create', 'App\Http\Controllers\Admin\ACL\RoleUserController@usersAvailable')->name('roles.users.available');
         Route::get('roles/{id}/users', 'App\Http\Controllers\Admin\ACL\RoleUserController@roles')->name('roles.users');
         Route::get('users/{id}/roles', 'App\Http\Controllers\Admin\ACL\RoleUserController@users')->name('users.roles');
-        
+
+        //Orders
+        Route::get('orders', 'App\Http\Controllers\Admin\OrderController@index')->name('orders.index');
+
         /**
          * Roles x Users (Especializa TI)
          */

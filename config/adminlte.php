@@ -290,6 +290,11 @@ return [
             'icon' => 'fas fa-table',
             'can'  => 'tables' #permissão acl
         ],
+        [
+            'text' => 'Pedidos',
+            'url'  => 'admin/orders',
+            'icon' => 'fas fa-utensils',
+        ],
     ],
 
     /*
