@@ -19,20 +19,18 @@ class AuthClientController extends Controller
         ]);
 
         $client = Client::where('email', $request->email)->first();
-        
-        //Hash::check() - compara a senha passada no request com a senha do usuário.
+
         if (!$client || !Hash::check($request->password, $client->password)) {
             return response()->json(['message' => trans('messages.invalid_credentials')], 404);
         }
 
         $token = $client->createToken($request->device_name)->plainTextToken;
 
-        return response()->json(['token', $token]);
+        return response()->json(['token' => $token]);
     }
 
     public function me(Request $request)
     {
-        //pega o usuário autenticado
         $client = $request->user();
 
         return new ClientResource($client);
@@ -40,10 +38,9 @@ class AuthClientController extends Controller
 
     public function logout(Request $request)
     {
-        //pega o usuário autenticado
         $client = $request->user();
 
-        //Revoke all token client...
+        // Revoke all tokens client...
         $client->tokens()->delete();
 
         return response()->json([], 204);

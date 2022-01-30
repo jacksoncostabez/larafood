@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreClient;
 use App\Http\Resources\ClientResource;
 use App\Services\ClientService;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -16,11 +17,10 @@ class RegisterController extends Controller
         $this->clientService = $clientService;
     }
 
+
     public function store(StoreClient $request)
     {
-        $data = $request->all();
-
-        $client = $this->clientService->createNewClient($data);
+        $client = $this->clientService->createNewClient($request->all());
 
         return new ClientResource($client);
     }
