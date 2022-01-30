@@ -21,11 +21,12 @@
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1",
         "vue": "^2.6.12",
+        "vue-loader": "^15.9.8",
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
         "axios": "^0.19",
-        "laravel-echo": "^1.9.0",
+        "laravel-echo": "^1.11.3",
         "socket.io-client": "^2.3.0",
         "vue": "^2.5.17",
         "vue-toastify": "^1.8.0"
